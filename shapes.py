@@ -9,7 +9,10 @@ def solid_rectangle(rows, cols):
     Returns:
     list: A list of strings, each representing a row of the rectangle.
     """
-    pass
+    pattern = []
+    for _ in range(rows):
+        pattern.append('*' * cols)
+    return pattern
 
 def hollow_rectangle(rows, cols):
     """
@@ -22,7 +25,15 @@ def hollow_rectangle(rows, cols):
     Returns:
     list: A list of strings, each representing a row of the hollow rectangle.
     """
-    pass
+    pattern = []
+    if rows == 1:
+        pattern.append('*' * cols)
+    else:
+        pattern.append('*' * cols)
+        for _ in range(rows - 2):
+            pattern.append('*' + ' ' * (cols - 2) + '*')
+        pattern.append('*' * cols)
+    return pattern
 
 def right_angled_triangle(rows):
     """
@@ -34,7 +45,10 @@ def right_angled_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of the triangle.
     """
-    pass
+    pattern = []
+    for i in range(1, rows + 1):
+        pattern.append('*' * i)
+    return pattern
 
 def inverted_right_angled_triangle(rows):
     """
@@ -46,7 +60,10 @@ def inverted_right_angled_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of the inverted triangle.
     """
-    pass
+    pattern = []
+    for i in range(rows, 0, -1):
+        pattern.append('*' * i)
+    return pattern
 
 def pyramid(rows):
     """
@@ -58,7 +75,10 @@ def pyramid(rows):
     Returns:
     list: A list of strings, each representing a row of the pyramid.
     """
-    pass
+    pattern = []
+    for i in range(rows):
+        pattern.append(' ' * (rows - i - 1) + '*' * (2 * i + 1))
+    return pattern
 
 def inverted_pyramid(rows):
     """
@@ -70,7 +90,10 @@ def inverted_pyramid(rows):
     Returns:
     list: A list of strings, each representing a row of the inverted pyramid.
     """
-    pass
+    pattern = []
+    for i in range(rows):
+        pattern.append(' ' * i + '*' * (2 * (rows - i) - 1))
+    return pattern
 
 def diamond(rows):
     """
@@ -82,7 +105,9 @@ def diamond(rows):
     Returns:
     list: A list of strings, each representing a row of the diamond.
     """
-    pass
+    upper_part = pyramid(rows)
+    lower_part = inverted_pyramid(rows)[1:]
+    return upper_part + lower_part
 
 def hollow_diamond(rows):
     """
@@ -94,7 +119,13 @@ def hollow_diamond(rows):
     Returns:
     list: A list of strings, each representing a row of the hollow diamond.
     """
-    pass
+    upper_part = []
+    for i in range(rows):
+        upper_part.append(' ' * (rows - i - 1) + '*' + ' ' * (2 * i - 1) + '*' * (i > 0))
+    lower_part = []
+    for i in range(1, rows):
+        lower_part.append(' ' * i + '*' + ' ' * (2 * (rows - i - 1) - 1) + '*' * (i < rows - 1))
+    return upper_part + lower_part
 
 def number_triangle(rows):
     """
@@ -106,7 +137,10 @@ def number_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of the number triangle.
     """
-    pass
+    pattern = []
+    for x in range(1, rows + 1):
+        pattern.append(' '.join([str(x)] * x))
+    return pattern
 
 def floyds_triangle(rows):
     """
@@ -118,7 +152,15 @@ def floyds_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of Floyd's triangle.
     """
-    pass
+    num = 1
+    result = []
+    for i in range(1, rows + 1):
+        line = []
+        for j in range(i):
+            line.append(str(num))
+            num += 1
+        result.append(' '.join(line))
+    return result
 
 def alphabet_pyramid(rows):
     """
@@ -130,7 +172,13 @@ def alphabet_pyramid(rows):
     Returns:
     list: A list of strings, each representing a row of the alphabet pyramid.
     """
-    pass
+    pattern = []
+    for i in range(rows):
+        line = ' ' * (rows - i - 1)
+        for j in range(i + 1):
+            line += chr(65 + j) + ' '
+        pattern.append(line.rstrip())
+    return pattern
 
 def mirrored_right_angled_triangle(rows):
     """
@@ -142,7 +190,10 @@ def mirrored_right_angled_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of the mirrored triangle.
     """
-    pass
+    pattern = []
+    for i in range(rows):
+        pattern.append(' ' * (rows - i - 1) + '*' * (i + 1))
+    return pattern
 
 def hourglass(rows):
     """
@@ -154,7 +205,16 @@ def hourglass(rows):
     Returns:
     list: A list of strings, each representing a row of the hourglass.
     """
-    pass
+    pattern = []
+    for i in range(rows // 2 + 1):
+        spaces = ' ' * i
+        stars = '*' * (rows - 2 * i)
+        pattern.append(spaces + stars + spaces)
+    for i in range(rows // 2 - 1, -1, -1):
+        spaces = ' ' * i
+        stars = '*' * (rows - 2 * i)
+        pattern.append(spaces + stars + spaces)
+    return pattern
 
 def pascals_triangle(rows):
     """
@@ -166,7 +226,17 @@ def pascals_triangle(rows):
     Returns:
     list: A list of strings, each representing a row of Pascal's triangle.
     """
-    pass
+    triangle = []
+    for i in range(rows):
+        row = [1] * (i + 1)
+        for j in range(1, i):
+            row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j]
+        triangle.append(row)
+    max_width = len(' '.join(map(str, triangle[-1])))
+    result = []
+    for row in triangle:
+        result.append(' '.join(map(str, row)).rjust((max_width + len(' '.join(map(str, row)))) // 2))
+    return result
 
 def diamond_number_pattern(rows):
     """
@@ -178,4 +248,11 @@ def diamond_number_pattern(rows):
     Returns:
     list: A list of strings, each representing a row of the diamond number pattern.
     """
-    pass
+    upper_part = []
+    for i in range(rows):
+        line = ' ' * (rows - i - 1)
+        line += ''.join(str(j) for j in range(1, i + 2))
+        line += ''.join(str(j) for j in range(i, 0, -1))
+        upper_part.append(line)
+    lower_part = upper_part[::-1]
+    return upper_part + lower_part[1:]
